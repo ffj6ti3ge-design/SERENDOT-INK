@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SERENDOT INK | Osaka Tattoo Studio</title>
+  <meta name="description" content="SERENDOT INK — 大阪・本町のタトゥースタジオ。Serendipity × Dotに由来する名のもと、初心者でも怖くない白く明るいスタジオで、ブラックアンドグレーを中心にあなたの肌に唯一無二のアートを刻みます。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@100;300;400&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #0a0a0a;
+      --dark:    #111111;
+      --gray:    #1c1c1c;
+      --mid:     #2e2e2e;
+      --muted:   #6b6b6b;
+      --light:   #b8b8b8;
+      --white:   #f0ede8;
+      --accent:  #c9a96e;
+      --accent2: #8b6f47;
+      --serif:   'Cormorant Garamond', serif;
+      --sans:    'Josefin Sans', sans-serif;
+      --jp:      'Noto Serif JP', serif;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background-color: var(--black);
+      color: var(--white);
+      font-family: var(--sans);
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ===== CUSTOM SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--accent2); border-radius: 2px; }
+
+    /* ===== NOISE OVERLAY ===== */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    /* ===== NAVIGATION ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.8rem 4rem;
+      transition: background 0.4s, padding 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(10,10,10,0.95);
+      padding: 1.2rem 4rem;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,169,110,0.1);
+    }
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-weight: 400;
+      letter-spacing: 0.3em;
+      color: var(--white);
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--light);
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-cta {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 0.6rem 1.5rem;
+      transition: background 0.3s, color 0.3s;
+    }
+    .nav-cta:hover { background: var(--accent); color: var(--black); }
+
+    /* ===== HERO ===== */
+    #hero {
+      position: relative;
+      height: 100vh;
+      min-height: 700px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,169,110,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 80% 20%, rgba(201,169,110,0.04) 0%, transparent 60%),
+        var(--black);
+    }
+    /* Animated dot pattern */
+    .hero-dots {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(201,169,110,0.15) 1px, transparent 1px);
+      background-size: 40px 40px;
+      animation: dotPulse 8s ease-in-out infinite;
+    }
+    @keyframes dotPulse {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.02); }
+    }
+    .hero-content {
+      position: relative;
+      text-align: center;
+      z-index: 1;
+    }
+    .hero-eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 1s 0.3s ease forwards;
+    }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(4rem, 10vw, 9rem);
+      font-weight: 300;
+      line-height: 0.9;
+      letter-spacing: 0.1em;
+      color: var(--white);
+      opacity: 0;
+      animation: fadeUp 1s 0.5s ease forwards;
+    }
+    .hero-title .dot { color: var(--accent); }
+    .hero-subtitle {
+      font-family: var(--jp);
+      font-size: 0.9rem;
+      font-weight: 300;
+      letter-spacing: 0.4em;
+      color: var(--muted);
+      margin-top: 2rem;
+      opacity: 0;
+      animation: fadeUp 1s 0.7s ease forwards;
+    }
+    .hero-divider {
+      width: 1px;
+      height: 80px;
+      background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+      margin: 3rem auto;
+      opacity: 0;
+      animation: fadeUp 1s 0.9s ease forwards;
+    }
+    .hero-tagline {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--light);
+      opacity: 0;
+      animation: fadeUp 1s 1.1s ease forwards;
+    }
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--muted);
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      animation: bounce 2s 2s ease infinite;
+    }
+    .scroll-hint::after {
+      content: '';
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--muted), transparent);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ===== SECTION BASE ===== */
+    section { padding: 8rem 0; }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 4rem;
+    }
+    .section-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: 0.05em;
+    }
+    .section-title em { font-style: italic; color: var(--accent); }
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ===== CONCEPT ===== */
+    #concept {
+      background: var(--dark);
+      position: relative;
+      overflow: hidden;
+    }
+    #concept::before {
+      content: 'SERENDOT';
+      position: absolute;
+      right: -2rem;
+      top: 50%;
+      transform: translateY(-50%) rotate(90deg);
+      font-family: var(--serif);
+      font-size: 12rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.02);
+      letter-spacing: 0.2em;
+      pointer-events: none;
+    }
+    .concept-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+    .concept-visual {
+      position: relative;
+      aspect-ratio: 3/4;
+      background: var(--gray);
+      overflow: hidden;
+    }
+    /* Mandala-like dot art using CSS */
+    .concept-visual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 50%, transparent 30%, rgba(201,169,110,0.05) 31%, rgba(201,169,110,0.05) 32%, transparent 33%),
+        radial-gradient(circle at 50% 50%, transparent 45%, rgba(201,169,110,0.04) 46%, rgba(201,169,110,0.04) 47%, transparent 48%),
+        radial-gradient(circle at 50% 50%, transparent 60%, rgba(201,169,110,0.03) 61%, rgba(201,169,110,0.03) 62%, transparent 63%),
+        radial-gradient(ellipse 80% 100% at 50% 50%, rgba(201,169,110,0.08) 0%, transparent 70%);
+    }
+    .concept-visual-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .mandala {
+      width: 260px;
+      height: 260px;
+      position: relative;
+    }
+    .mandala svg {
+      width: 100%;
+      height: 100%;
+      animation: rotate 40s linear infinite;
+    }
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    .concept-badge {
+      position: absolute;
+      bottom: 2rem;
+      right: -1.5rem;
+      width: 90px;
+      height: 90px;
+      border: 1px solid var(--accent);
+      background: var(--dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.2rem;
+    }
+    .concept-badge .num {
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .concept-badge .label {
+      font-size: 0.5rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .concept-text .section-title { margin: 1rem 0 2.5rem; }
+    .concept-body {
+      color: var(--light);
+      line-height: 1.9;
+      font-size: 0.9rem;
+      font-family: var(--jp);
+      font-weight: 300;
+    }
+    .concept-body p + p { margin-top: 1.5rem; }
+    .concept-values {
+      display: flex;
+      gap: 2rem;
+      margin-top: 3rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--mid);
+    }
+    .concept-value {
+      flex: 1;
+    }
+    .concept-value .val-num {
+      font-family: var(--serif);
+      font-size: 2rem;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .concept-value .val-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+
+    /* ===== SERVICES ===== */
+    #services {
+      background: var(--black);
+    }
+    .services-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 5rem;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--mid);
+    }
+    .service-card {
+      background: var(--black);
+      padding: 3rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+      transition: background 0.4s;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--accent), transparent);
+      transform: scaleX(0);
+      transition: transform 0.4s;
+    }
+    .service-card:hover { background: var(--dark); }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-num {
+      font-family: var(--serif);
+      font-size: 3rem;
+      font-weight: 300;
+      color: rgba(201,169,110,0.15);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+    .service-icon {
+      font-size: 1.5rem;
+      margin-bottom: 1.2rem;
+      color: var(--accent);
+    }
+    .service-name {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 300;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.05em;
+    }
+    .service-name-jp {
+      font-family: var(--jp);
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.2em;
+      margin-bottom: 1.5rem;
+    }
+    .service-desc {
+      font-family: var(--jp);
+      font-size: 0.82rem;
+      color: var(--light);
+      line-height: 1.8;
+    }
+    .service-price {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--mid);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .service-price span {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+
+    /* ===== GALLERY ===== */
+    #gallery {
+      background: var(--dark);
+      padding-bottom: 0;
+    }
+    .gallery-header {
+      padding-bottom: 4rem;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: repeat(2, 320px);
+      gap: 4px;
+    }
+    .gallery-item {
+      overflow: hidden;
+      background: var(--gray);
+      position: relative;
+    }
+    .gallery-item:nth-child(1) { grid-column: span 5; grid-row: span 2; }
+    .gallery-item:nth-child(2) { grid-column: span 4; }
+    .gallery-item:nth-child(3) { grid-column: span 3; }
+    .gallery-item:nth-child(4) { grid-column: span 3; }
+    .gallery-item:nth-child(5) { grid-column: span 4; }
+    .gallery-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .gallery-placeholder .dot-art {
+      width: 80px;
+      height: 80px;
+      opacity: 0.3;
+    }
+    .gallery-placeholder p {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    /* Unique dot patterns per card */
+    .g1 { background: radial-gradient(ellipse at 30% 40%, rgba(201,169,110,0.12) 0%, transparent 60%), var(--gray); }
+    .g2 { background: radial-gradient(ellipse at 70% 30%, rgba(201,169,110,0.08) 0%, transparent 60%), var(--mid); }
+    .g3 { background: radial-gradient(ellipse at 50% 80%, rgba(201,169,110,0.10) 0%, transparent 60%), var(--gray); }
+    .g4 { background: radial-gradient(ellipse at 20% 50%, rgba(201,169,110,0.06) 0%, transparent 60%), var(--mid); }
+    .g5 { background: radial-gradient(ellipse at 80% 60%, rgba(201,169,110,0.09) 0%, transparent 60%), var(--gray); }
+    .gallery-cta {
+      text-align: center;
+      padding: 4rem 0;
+    }
+    .btn-outline {
+      display: inline-block;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      padding: 1rem 2.5rem;
+      transition: background 0.3s, color 0.3s;
+    }
+    .btn-outline:hover { background: var(--accent); color: var(--black); }
+
+    /* ===== PROCESS ===== */
+    #process {
+      background: var(--black);
+      position: relative;
+    }
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-top: 5rem;
+      position: relative;
+    }
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 2.5rem;
+      left: 12.5%;
+      right: 12.5%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--mid), var(--mid), transparent);
+    }
+    .process-step {
+      text-align: center;
+      padding: 0 2rem;
+    }
+    .step-circle {
+      width: 5rem;
+      height: 5rem;
+      border: 1px solid var(--mid);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 2rem;
+      position: relative;
+      background: var(--black);
+      transition: border-color 0.3s;
+    }
+    .process-step:hover .step-circle {
+      border-color: var(--accent);
+    }
+    .step-circle::before {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      border: 1px solid rgba(201,169,110,0.2);
+      border-radius: 50%;
+    }
+    .step-num {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: var(--accent);
+    }
+    .step-title {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-weight: 300;
+      margin-bottom: 0.8rem;
+    }
+    .step-desc {
+      font-family: var(--jp);
+      font-size: 0.78rem;
+      color: var(--light);
+      line-height: 1.8;
+    }
+
+    /* ===== ARTIST ===== */
+    #artist { background: var(--dark); }
+    .artist-intro { max-width: 640px; margin-bottom: 5rem; }
+    .artist-intro .section-title { margin: 1rem 0 1.5rem; }
+    .artist-intro-desc {
+      font-family: var(--jp);
+      font-size: 0.88rem;
+      color: var(--light);
+      line-height: 1.9;
+    }
+    .artist-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--mid);
+    }
+    .artist-card {
+      background: var(--dark);
+      overflow: hidden;
+      transition: background 0.4s;
+    }
+    .artist-card:hover { background: var(--gray); }
+    .artist-photo {
+      aspect-ratio: 3/4;
+      background: var(--gray);
+      position: relative;
+      overflow: hidden;
+    }
+    .artist-photo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 55%, rgba(10,10,10,0.85) 100%);
+    }
+    .artist-photo-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .artist-initial {
+      font-family: var(--serif);
+      font-size: 6rem;
+      font-weight: 300;
+      color: rgba(201,169,110,0.12);
+    }
+    .g-yui   { background: radial-gradient(ellipse at 40% 30%, rgba(201,169,110,0.10) 0%, transparent 60%), var(--gray); }
+    .g-kigu  { background: radial-gradient(ellipse at 60% 50%, rgba(201,169,110,0.08) 0%, transparent 60%), var(--mid); }
+    .g-itona { background: radial-gradient(ellipse at 50% 70%, rgba(201,169,110,0.09) 0%, transparent 60%), var(--gray); }
+    .artist-card-info { padding: 2rem 2rem 2.5rem; }
+    .artist-card-name {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.3rem;
+    }
+    .artist-card-role {
+      font-size: 0.58rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .artist-card-desc {
+      font-family: var(--jp);
+      font-size: 0.8rem;
+      color: var(--light);
+      line-height: 1.85;
+      margin-bottom: 1.5rem;
+    }
+    .artist-card-ig {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      border: 1px solid var(--mid);
+      padding: 0.45rem 1rem;
+      transition: border-color 0.3s, color 0.3s;
+    }
+    .artist-card-ig:hover { border-color: var(--accent); color: var(--accent); }
+    .artist-card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.2rem;
+    }
+    .artist-card-tag {
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: 1px solid var(--mid);
+      color: var(--muted);
+      padding: 0.3rem 0.7rem;
+    }
+
+    /* ===== FAQ ===== */
+    #faq {
+      background: var(--black);
+    }
+    .faq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--mid);
+      margin-top: 4rem;
+    }
+    .faq-item {
+      background: var(--black);
+      padding: 2.5rem;
+      cursor: pointer;
+    }
+    .faq-q {
+      font-family: var(--jp);
+      font-size: 0.88rem;
+      font-weight: 400;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .faq-q::after {
+      content: '+';
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      color: var(--accent);
+      line-height: 1;
+      flex-shrink: 0;
+      transition: transform 0.3s;
+    }
+    .faq-item.open .faq-q::after { transform: rotate(45deg); }
+    .faq-a {
+      font-family: var(--jp);
+      font-size: 0.8rem;
+      color: var(--light);
+      line-height: 1.9;
+      margin-top: 1rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .faq-item.open .faq-a { max-height: 300px; }
+
+    /* ===== BOOKING ===== */
+    #booking {
+      background: var(--dark);
+      position: relative;
+      overflow: hidden;
+    }
+    #booking::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 50% 50%, rgba(201,169,110,0.05) 0%, transparent 70%),
+        radial-gradient(circle at 20% 80%, rgba(201,169,110,0.03) 0%, transparent 50%);
+    }
+    .booking-content {
+      position: relative;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .booking-content .section-title { font-size: clamp(3rem, 6vw, 5.5rem); }
+    .booking-desc {
+      font-family: var(--jp);
+      font-size: 0.9rem;
+      color: var(--light);
+      line-height: 1.9;
+      margin: 2rem 0 3.5rem;
+    }
+    .booking-actions {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--black);
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      padding: 1.1rem 3rem;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
+    .booking-note {
+      margin-top: 3rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+    }
+
+    /* ===== ACCESS ===== */
+    #access {
+      background: var(--black);
+    }
+    .access-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      margin-top: 4rem;
+      align-items: start;
+    }
+    .access-map {
+      aspect-ratio: 4/3;
+      background: var(--gray);
+      position: relative;
+      overflow: hidden;
+    }
+    .map-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      background: linear-gradient(135deg, var(--gray) 0%, var(--mid) 100%);
+    }
+    .map-pin {
+      font-size: 2.5rem;
+      color: var(--accent);
+    }
+    .map-placeholder p {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .access-info dl { display: grid; gap: 2rem; }
+    .access-dt {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+    .access-dd {
+      font-family: var(--jp);
+      font-size: 0.88rem;
+      color: var(--white);
+      line-height: 1.7;
+    }
+    .access-divider {
+      height: 1px;
+      background: var(--mid);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--dark);
+      border-top: 1px solid var(--mid);
+      padding: 4rem 0 2rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 4rem;
+    }
+    .footer-brand .logo {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      margin-bottom: 1rem;
+    }
+    .footer-brand .logo span { color: var(--accent); }
+    .footer-brand p {
+      font-family: var(--jp);
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .footer-col h4 {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    .footer-col ul a {
+      font-size: 0.78rem;
+      color: var(--muted);
+      transition: color 0.3s;
+    }
+    .footer-col ul a:hover { color: var(--white); }
+    .footer-bottom {
+      padding-top: 2rem;
+      border-top: 1px solid var(--mid);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-bottom p {
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+    .social-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .social-link {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.3s;
+    }
+    .social-link:hover { color: var(--accent); }
+
+    /* ===== MOBILE ===== */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--white);
+      transition: all 0.3s;
+    }
+
+    @media (max-width: 1024px) {
+      nav { padding: 1.5rem 2rem; }
+      nav.scrolled { padding: 1rem 2rem; }
+      .container { padding: 0 2rem; }
+      .concept-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .concept-visual { max-width: 400px; margin: 0 auto; }
+      .services-grid { grid-template-columns: 1fr; }
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+      }
+      .gallery-item { grid-column: span 1 !important; grid-row: span 1 !important; }
+      .gallery-item:nth-child(1) { grid-column: span 2 !important; }
+      .process-steps { grid-template-columns: repeat(2, 1fr); gap: 3rem; }
+      .process-steps::before { display: none; }
+      .artist-cards { grid-template-columns: 1fr; }
+      .faq-grid { grid-template-columns: 1fr; }
+      .access-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+      .footer-brand { grid-column: span 2; }
+    }
+
+    @media (max-width: 768px) {
+      section { padding: 5rem 0; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .hero-title { font-size: 4rem; }
+      .services-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item:nth-child(1) { grid-column: span 1 !important; }
+      .process-steps { grid-template-columns: 1fr; gap: 2rem; }
+      .process-step { padding: 0; }
+      .booking-actions { flex-direction: column; align-items: center; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-brand { grid-column: span 1; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav id="nav">
+    <div class="nav-logo">SERENDOT<span>.</span>INK</div>
+    <ul class="nav-links">
+      <li><a href="#concept">Concept</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#artist">Artist</a></li>
+      <li><a href="#access">Access</a></li>
+    </ul>
+    <a href="#booking" class="nav-cta">Booking</a>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-dots"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Osaka Tattoo Studio — Est. 2025</p>
+      <h1 class="hero-title">
+        SERENDOT<br>INK
+      </h1>
+      <p class="hero-subtitle">点が紡ぐ、あなただけの物語</p>
+      <div class="hero-divider"></div>
+      <p class="hero-tagline">Black &amp; Grey &nbsp;·&nbsp; Realism &nbsp;·&nbsp; Fine Line &nbsp;·&nbsp; Custom Design</p>
+    </div>
+    <div class="scroll-hint">Scroll</div>
+  </section>
+
+  <!-- CONCEPT -->
+  <section id="concept">
+    <div class="container">
+      <div class="concept-grid">
+        <div class="concept-visual reveal">
+          <div class="concept-visual-inner">
+            <div class="mandala">
+              <svg viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Outer ring of dots -->
+                <circle cx="130" cy="10" r="2.5" fill="#c9a96e" opacity="0.8"/>
+                <circle cx="173" cy="21" r="2" fill="#c9a96e" opacity="0.6"/>
+                <circle cx="208" cy="52" r="2.5" fill="#c9a96e" opacity="0.8"/>
+                <circle cx="220" cy="95" r="2" fill="#c9a96e" opacity="0.6"/>
+                <circle cx="250" cy="130" r="2.5" fill="#c9a96e" opacity="0.8"/>
+                <circle cx="220" cy="165" r="2" fill="#c9a96e" opacity="0.6"/>
+                <circle cx="208" cy="208" r="2.5" fill="#c9a96e" opacity="0.8"/>
+                <circle cx="173" cy="239" r="2" fill="#c9a96e" opacity="0.6"/>
+                <circle cx="130" cy="250" r="2.5" fill="#c9a96e" opacity="0.8"/>
+                <circle cx="87" cy="239" r="2" fill="#c9a96e" opacity="0.6"/>
+                <circle cx="52" cy="208" r="2.5" fill="#c9a96e" opacity="0.8"/>
+                <circle cx="40" cy="165" r="2" fill="#c9a96e" opacity="0.6"/>
+                <circle cx="10" cy="130" r="2.5" fill="#c9a96e" opacity="0.8"/>
+                <circle cx="40" cy="95" r="2" fill="#c9a96e" opacity="0.6"/>
+                <circle cx="52" cy="52" r="2.5" fill="#c9a96e" opacity="0.8"/>
+                <circle cx="87" cy="21" r="2" fill="#c9a96e" opacity="0.6"/>
+                <!-- Mid ring -->
+                <circle cx="130" cy="40" r="2" fill="#c9a96e" opacity="0.5"/>
+                <circle cx="163" cy="50" r="1.5" fill="#c9a96e" opacity="0.4"/>
+                <circle cx="190" cy="70" r="2" fill="#c9a96e" opacity="0.5"/>
+                <circle cx="205" cy="100" r="1.5" fill="#c9a96e" opacity="0.4"/>
+                <circle cx="210" cy="130" r="2" fill="#c9a96e" opacity="0.5"/>
+                <circle cx="205" cy="160" r="1.5" fill="#c9a96e" opacity="0.4"/>
+                <circle cx="190" cy="190" r="2" fill="#c9a96e" opacity="0.5"/>
+                <circle cx="163" cy="210" r="1.5" fill="#c9a96e" opacity="0.4"/>
+                <circle cx="130" cy="220" r="2" fill="#c9a96e" opacity="0.5"/>
+                <circle cx="97" cy="210" r="1.5" fill="#c9a96e" opacity="0.4"/>
+                <circle cx="70" cy="190" r="2" fill="#c9a96e" opacity="0.5"/>
+                <circle cx="55" cy="160" r="1.5" fill="#c9a96e" opacity="0.4"/>
+                <circle cx="50" cy="130" r="2" fill="#c9a96e" opacity="0.5"/>
+                <circle cx="55" cy="100" r="1.5" fill="#c9a96e" opacity="0.4"/>
+                <circle cx="70" cy="70" r="2" fill="#c9a96e" opacity="0.5"/>
+                <circle cx="97" cy="50" r="1.5" fill="#c9a96e" opacity="0.4"/>
+                <!-- Inner ring -->
+                <circle cx="130" cy="75" r="1.5" fill="#c9a96e" opacity="0.6"/>
+                <circle cx="155" cy="82" r="1.2" fill="#c9a96e" opacity="0.5"/>
+                <circle cx="175" cy="98" r="1.5" fill="#c9a96e" opacity="0.6"/>
+                <circle cx="180" cy="120" r="1.2" fill="#c9a96e" opacity="0.5"/>
+                <circle cx="178" cy="142" r="1.5" fill="#c9a96e" opacity="0.6"/>
+                <circle cx="165" cy="160" r="1.2" fill="#c9a96e" opacity="0.5"/>
+                <circle cx="148" cy="172" r="1.5" fill="#c9a96e" opacity="0.6"/>
+                <circle cx="130" cy="175" r="1.2" fill="#c9a96e" opacity="0.5"/>
+                <circle cx="112" cy="172" r="1.5" fill="#c9a96e" opacity="0.6"/>
+                <circle cx="95" cy="160" r="1.2" fill="#c9a96e" opacity="0.5"/>
+                <circle cx="82" cy="142" r="1.5" fill="#c9a96e" opacity="0.6"/>
+                <circle cx="80" cy="120" r="1.2" fill="#c9a96e" opacity="0.5"/>
+                <circle cx="85" cy="98" r="1.5" fill="#c9a96e" opacity="0.6"/>
+                <circle cx="105" cy="82" r="1.2" fill="#c9a96e" opacity="0.5"/>
+                <!-- Center cluster -->
+                <circle cx="130" cy="115" r="3" fill="#c9a96e" opacity="0.9"/>
+                <circle cx="145" cy="122" r="2" fill="#c9a96e" opacity="0.7"/>
+                <circle cx="140" cy="138" r="2.5" fill="#c9a96e" opacity="0.8"/>
+                <circle cx="130" cy="145" r="1.5" fill="#c9a96e" opacity="0.6"/>
+                <circle cx="120" cy="138" r="2" fill="#c9a96e" opacity="0.7"/>
+                <circle cx="115" cy="122" r="2.5" fill="#c9a96e" opacity="0.8"/>
+                <!-- Center dot -->
+                <circle cx="130" cy="130" r="4" fill="#c9a96e" opacity="1"/>
+                <!-- Decorative lines -->
+                <line x1="130" y1="80" x2="130" y2="10" stroke="#c9a96e" stroke-width="0.5" opacity="0.15"/>
+                <line x1="130" y1="180" x2="130" y2="250" stroke="#c9a96e" stroke-width="0.5" opacity="0.15"/>
+                <line x1="80" y1="130" x2="10" y2="130" stroke="#c9a96e" stroke-width="0.5" opacity="0.15"/>
+                <line x1="180" y1="130" x2="250" y2="130" stroke="#c9a96e" stroke-width="0.5" opacity="0.15"/>
+              </svg>
+            </div>
+          </div>
+          <div class="concept-badge">
+            <span class="num">100%</span>
+            <span class="label">Custom</span>
+          </div>
+        </div>
+        <div class="concept-text">
+          <p class="section-label reveal reveal-delay-1">Our Concept</p>
+          <h2 class="section-title reveal reveal-delay-2">偶然が<em>導く</em><br>唯一の出会い</h2>
+          <div class="concept-body reveal reveal-delay-3">
+            <p>SERENDOT INKの名は、<strong style="color:var(--accent)">Serendipity × Dot</strong> に由来しています。「Serendipity」とは、幸運な偶然を引き寄せる力。思いがけない出会いや、予期せぬ美しさの中に幸せを見つける感性。</p>
+            <p>訪れたお店が休みだったのに、偶然入った別のお店が素晴らしかった——そんな経験がタトゥーを通じてあなたにも起きますように。あなたと私たちの「偶然の出会い」が、特別な一作を生みます。</p>
+            <p>白く明るい清潔なスタジオで、完全予約制によるプライベートな空間をご用意。<strong style="color:var(--white)">「タトゥー初心者でも怖くないスタジオ」「明日もまた来たくなるスタジオ」</strong>を目指して、日々精進しています。</p>
+          </div>
+          <div class="concept-values reveal reveal-delay-4">
+            <div class="concept-value">
+              <div class="val-num">01</div>
+              <div class="val-label">Custom Design</div>
+            </div>
+            <div class="concept-value">
+              <div class="val-num">02</div>
+              <div class="val-label">Sanitary</div>
+            </div>
+            <div class="concept-value">
+              <div class="val-num">03</div>
+              <div class="val-label">Aftercare</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="container">
+      <div class="services-header">
+        <div>
+          <p class="section-label reveal">Services</p>
+          <h2 class="section-title reveal reveal-delay-1">施術<em>メニュー</em></h2>
+        </div>
+        <p class="reveal reveal-delay-2" style="font-family:var(--jp);font-size:0.8rem;color:var(--muted);max-width:280px;line-height:1.8;text-align:right;">
+          初めての方も丁寧にご案内します。<br>お気軽にご相談ください。
+        </p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-num">01</div>
+          <div class="service-name">Dotwork</div>
+          <div class="service-name-jp">ドットワーク</div>
+          <p class="service-desc">無数の点で描く精密なタトゥー。グラデーションや陰影を点の密度で表現し、独特の質感を生み出します。曼荼羅、幾何学模様、自然モチーフが得意です。</p>
+          <div class="service-price">Starting from <span>¥30,000</span></div>
+        </div>
+        <div class="service-card reveal reveal-delay-1">
+          <div class="service-num">02</div>
+          <div class="service-name">Fine Line</div>
+          <div class="service-name-jp">ファインライン</div>
+          <p class="service-desc">繊細な細い線で描く洗練されたスタイル。植物、ポートレート、文字などを極細ラインで仕上げます。上品でミニマルな表現を求める方に。</p>
+          <div class="service-price">Starting from <span>¥25,000</span></div>
+        </div>
+        <div class="service-card reveal reveal-delay-2">
+          <div class="service-num">03</div>
+          <div class="service-name">Blackwork</div>
+          <div class="service-name-jp">ブラックワーク</div>
+          <p class="service-desc">ブラックインクのみで描くインパクトのある作品。大胆な塗りつぶしと繊細なライン、点描を組み合わせた唯一無二のデザイン。</p>
+          <div class="service-price">Starting from <span>¥40,000</span></div>
+        </div>
+        <div class="service-card reveal reveal-delay-1">
+          <div class="service-num">04</div>
+          <div class="service-name">Cover Up</div>
+          <div class="service-name-jp">カバーアップ</div>
+          <p class="service-desc">既存のタトゥーを新しいデザインで覆います。カウンセリングにて元のデザインを確認し、最適なプランをご提案。丁寧な仕上がりをお約束します。</p>
+          <div class="service-price">Starting from <span>¥50,000</span></div>
+        </div>
+        <div class="service-card reveal reveal-delay-2">
+          <div class="service-num">05</div>
+          <div class="service-name">Touch Up</div>
+          <div class="service-name-jp">タッチアップ</div>
+          <p class="service-desc">当スタジオで施術した作品のリタッチは初回無料。色あせや線のにじみを修正し、長く美しい状態を維持するためのアフターケアです。</p>
+          <div class="service-price"><span>Free</span> (当スタジオ施術分)</div>
+        </div>
+        <div class="service-card reveal reveal-delay-3">
+          <div class="service-num">06</div>
+          <div class="service-name">Consultation</div>
+          <div class="service-name-jp">カウンセリング</div>
+          <p class="service-desc">初めての方向けの無料カウンセリング。デザイン相談、施術部位のご提案、痛みや衛生管理についての説明まで丁寧にお答えします。</p>
+          <div class="service-price"><span>Free</span> — 完全予約制</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery">
+    <div class="container">
+      <div class="gallery-header">
+        <p class="section-label reveal">Gallery</p>
+        <h2 class="section-title reveal reveal-delay-1">作品<em>集</em></h2>
+      </div>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item g1">
+        <div class="gallery-placeholder">
+          <svg class="dot-art" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="40" cy="40" r="3" fill="#c9a96e"/>
+            <circle cx="40" cy="20" r="2" fill="#c9a96e" opacity="0.6"/>
+            <circle cx="40" cy="60" r="2" fill="#c9a96e" opacity="0.6"/>
+            <circle cx="20" cy="40" r="2" fill="#c9a96e" opacity="0.6"/>
+            <circle cx="60" cy="40" r="2" fill="#c9a96e" opacity="0.6"/>
+            <circle cx="26" cy="26" r="1.5" fill="#c9a96e" opacity="0.4"/>
+            <circle cx="54" cy="26" r="1.5" fill="#c9a96e" opacity="0.4"/>
+            <circle cx="26" cy="54" r="1.5" fill="#c9a96e" opacity="0.4"/>
+            <circle cx="54" cy="54" r="1.5" fill="#c9a96e" opacity="0.4"/>
+          </svg>
+          <p>Dotwork · Mandala</p>
+        </div>
+      </div>
+      <div class="gallery-item g2">
+        <div class="gallery-placeholder">
+          <svg class="dot-art" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="15" r="2" fill="#c9a96e" opacity="0.5"/><circle cx="40" cy="30" r="1.5" fill="#c9a96e" opacity="0.6"/><circle cx="40" cy="45" r="3" fill="#c9a96e"/><circle cx="28" cy="52" r="1.5" fill="#c9a96e" opacity="0.5"/><circle cx="52" cy="52" r="1.5" fill="#c9a96e" opacity="0.5"/><circle cx="34" cy="62" r="1" fill="#c9a96e" opacity="0.4"/><circle cx="46" cy="62" r="1" fill="#c9a96e" opacity="0.4"/></svg>
+          <p>Fine Line · Botanical</p>
+        </div>
+      </div>
+      <div class="gallery-item g3">
+        <div class="gallery-placeholder">
+          <svg class="dot-art" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="20" stroke="#c9a96e" stroke-width="0.5" opacity="0.3"/><circle cx="40" cy="40" r="12" stroke="#c9a96e" stroke-width="0.5" opacity="0.4"/><circle cx="40" cy="40" r="5" fill="#c9a96e" opacity="0.8"/><circle cx="40" cy="20" r="1.5" fill="#c9a96e" opacity="0.5"/><circle cx="40" cy="60" r="1.5" fill="#c9a96e" opacity="0.5"/><circle cx="20" cy="40" r="1.5" fill="#c9a96e" opacity="0.5"/><circle cx="60" cy="40" r="1.5" fill="#c9a96e" opacity="0.5"/></svg>
+          <p>Geometric · Blackwork</p>
+        </div>
+      </div>
+      <div class="gallery-item g4">
+        <div class="gallery-placeholder">
+          <svg class="dot-art" viewBox="0 0 80 80" fill="none"><ellipse cx="40" cy="35" rx="12" ry="18" stroke="#c9a96e" stroke-width="0.5" opacity="0.4"/><circle cx="40" cy="35" r="2" fill="#c9a96e"/><circle cx="32" cy="28" r="1" fill="#c9a96e" opacity="0.5"/><circle cx="48" cy="28" r="1" fill="#c9a96e" opacity="0.5"/><circle cx="30" cy="42" r="1.5" fill="#c9a96e" opacity="0.4"/><circle cx="50" cy="42" r="1.5" fill="#c9a96e" opacity="0.4"/><line x1="40" y1="53" x2="36" y2="63" stroke="#c9a96e" stroke-width="0.5" opacity="0.3"/><line x1="40" y1="53" x2="44" y2="63" stroke="#c9a96e" stroke-width="0.5" opacity="0.3"/></svg>
+          <p>Dotwork · Nature</p>
+        </div>
+      </div>
+      <div class="gallery-item g5">
+        <div class="gallery-placeholder">
+          <svg class="dot-art" viewBox="0 0 80 80" fill="none"><circle cx="20" cy="20" r="1.5" fill="#c9a96e" opacity="0.4"/><circle cx="40" cy="15" r="2" fill="#c9a96e" opacity="0.6"/><circle cx="60" cy="20" r="1.5" fill="#c9a96e" opacity="0.4"/><circle cx="15" cy="40" r="1.5" fill="#c9a96e" opacity="0.5"/><circle cx="40" cy="40" r="4" fill="#c9a96e"/><circle cx="65" cy="40" r="1.5" fill="#c9a96e" opacity="0.5"/><circle cx="20" cy="60" r="1.5" fill="#c9a96e" opacity="0.4"/><circle cx="40" cy="65" r="2" fill="#c9a96e" opacity="0.6"/><circle cx="60" cy="60" r="1.5" fill="#c9a96e" opacity="0.4"/><circle cx="28" cy="28" r="1" fill="#c9a96e" opacity="0.3"/><circle cx="52" cy="28" r="1" fill="#c9a96e" opacity="0.3"/><circle cx="28" cy="52" r="1" fill="#c9a96e" opacity="0.3"/><circle cx="52" cy="52" r="1" fill="#c9a96e" opacity="0.3"/></svg>
+          <p>Fine Line · Minimal</p>
+        </div>
+      </div>
+    </div>
+    <div class="gallery-cta reveal">
+      <a href="https://www.instagram.com/" target="_blank" class="btn-outline">Instagram でもっと見る</a>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="container">
+      <p class="section-label reveal">How It Works</p>
+      <h2 class="section-title reveal reveal-delay-1">施術の<em>流れ</em></h2>
+      <div class="process-steps">
+        <div class="process-step reveal">
+          <div class="step-circle"><span class="step-num">01</span></div>
+          <h3 class="step-title">お問い合わせ</h3>
+          <p class="step-desc">InstagramのDMまたはWebフォームよりご連絡ください。ご希望のデザイン、部位、サイズを教えていただくとスムーズです。</p>
+        </div>
+        <div class="process-step reveal reveal-delay-1">
+          <div class="step-circle"><span class="step-num">02</span></div>
+          <h3 class="step-title">カウンセリング</h3>
+          <p class="step-desc">ご来店またはオンラインにてデザインの詳細を打ち合わせ。ご要望をもとにラフデザインをご提案します。（無料）</p>
+        </div>
+        <div class="process-step reveal reveal-delay-2">
+          <div class="step-circle"><span class="step-num">03</span></div>
+          <h3 class="step-title">施術当日</h3>
+          <p class="step-desc">ステンシルで位置を確認後、施術開始。衛生管理を徹底した清潔な環境でリラックスして施術を受けていただけます。</p>
+        </div>
+        <div class="process-step reveal reveal-delay-3">
+          <div class="step-circle"><span class="step-num">04</span></div>
+          <h3 class="step-title">アフターケア</h3>
+          <p class="step-desc">施術後のケア方法を詳しくご説明。治癒期間中のサポートと、完全回復後の無料タッチアップをご提供します。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTIST -->
+  <section id="artist">
+    <div class="container">
+      <div class="artist-intro">
+        <p class="section-label reveal">Artists</p>
+        <h2 class="section-title reveal reveal-delay-1">3人の<em>アーティスト</em></h2>
+        <p class="artist-intro-desc reveal reveal-delay-2">
+          ブラックアンドグレーを軸に、それぞれ異なる個性を持つ3名が在籍。ワンポイントから大作まで、あなたのイメージに合うアーティストをご指名ください。
+        </p>
+      </div>
+      <div class="artist-cards">
+
+        <!-- YUI -->
+        <div class="artist-card reveal">
+          <div class="artist-photo g-yui">
+            <div class="artist-photo-placeholder">
+              <span class="artist-initial">YUI</span>
+            </div>
+          </div>
+          <div class="artist-card-info">
+            <div class="artist-card-name">YUI</div>
+            <div class="artist-card-role">Tattoo Artist / Studio Owner</div>
+            <p class="artist-card-desc">ワンポイント・レタリングをメインに活動。愛犬タトゥーや動物モチーフが得意で、柔らかく繊細なタッチが持ち味。スタジオオーナーとして初心者への丁寧な対応でも定評があります。</p>
+            <a href="https://www.instagram.com/yui_serendot_ink/" target="_blank" class="artist-card-ig">@ yui_serendot_ink</a>
+            <div class="artist-card-tags">
+              <span class="artist-card-tag">One Point</span>
+              <span class="artist-card-tag">Lettering</span>
+              <span class="artist-card-tag">Animals</span>
+              <span class="artist-card-tag">Pet Tattoo</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- KIGU -->
+        <div class="artist-card reveal reveal-delay-1">
+          <div class="artist-photo g-kigu">
+            <div class="artist-photo-placeholder">
+              <span class="artist-initial">KIGU</span>
+            </div>
+          </div>
+          <div class="artist-card-info">
+            <div class="artist-card-name">KIGU</div>
+            <div class="artist-card-role">Tattoo Artist</div>
+            <p class="artist-card-desc">胸一面・腕一本・足一本など大きな作品を専門とするリアリスト。ブラックアンドグレーによる圧倒的な陰影表現で、皮膚の上に立体感あふれる世界を描き出します。</p>
+            <a href="https://www.instagram.com/kigu_serendot_ink/" target="_blank" class="artist-card-ig">@ kigu_serendot_ink</a>
+            <div class="artist-card-tags">
+              <span class="artist-card-tag">Large Pieces</span>
+              <span class="artist-card-tag">Realism</span>
+              <span class="artist-card-tag">Black &amp; Grey</span>
+              <span class="artist-card-tag">Portrait</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ITONA -->
+        <div class="artist-card reveal reveal-delay-2">
+          <div class="artist-photo g-itona">
+            <div class="artist-photo-placeholder">
+              <span class="artist-initial">ITONA</span>
+            </div>
+          </div>
+          <div class="artist-card-info">
+            <div class="artist-card-name">ITONA</div>
+            <div class="artist-card-role">Tattoo Artist</div>
+            <p class="artist-card-desc">ワンポイントから大作まで幅広く対応。リアルとイラストを融合させた独創性の高いデザインが人気で、世界にひとつのオリジナル作品を求めるお客様から高い支持を得ています。</p>
+            <a href="https://www.instagram.com/_____7eu/" target="_blank" class="artist-card-ig">@ _____7eu</a>
+            <div class="artist-card-tags">
+              <span class="artist-card-tag">Original Design</span>
+              <span class="artist-card-tag">Real × Illust</span>
+              <span class="artist-card-tag">One Point</span>
+              <span class="artist-card-tag">Large Pieces</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <p class="section-label reveal">FAQ</p>
+      <h2 class="section-title reveal reveal-delay-1">よくある<em>ご質問</em></h2>
+      <div class="faq-grid">
+        <div class="faq-item reveal">
+          <div class="faq-q">タトゥーは痛いですか？</div>
+          <div class="faq-a">痛みの感じ方には個人差があります。一般的に骨に近い部位（肋骨、足首、脊椎など）は痛みを感じやすく、筋肉が多い部位（太もも、上腕など）は比較的痛みが少ない傾向があります。施術中はいつでも休憩を取ることができますのでご安心ください。</div>
+        </div>
+        <div class="faq-item reveal reveal-delay-1">
+          <div class="faq-q">未成年でも施術できますか？</div>
+          <div class="faq-a">当スタジオでは18歳未満の方への施術はお断りしております。18歳以上であれば保護者の同意は不要ですが、身分証明書の提示をお願いする場合があります。</div>
+        </div>
+        <div class="faq-item reveal">
+          <div class="faq-q">どのくらいの時間がかかりますか？</div>
+          <div class="faq-a">デザインのサイズや複雑さによって大きく異なります。小さなワンポイント（5cm以下）は1〜2時間程度、中〜大作品は4〜8時間以上かかる場合があります。大きなデザインは複数回に分けて施術することもあります。</div>
+        </div>
+        <div class="faq-item reveal reveal-delay-1">
+          <div class="faq-q">施術前に準備することはありますか？</div>
+          <div class="faq-a">施術前日はしっかり睡眠を取り、当日は食事をしてご来店ください（空腹での施術はお控えください）。施術部位は清潔にし、日焼けや怪我がない状態でお越しください。飲酒しての来店はお断りしております。</div>
+        </div>
+        <div class="faq-item reveal">
+          <div class="faq-q">デザインは持ち込みできますか？</div>
+          <div class="faq-a">もちろんです。参考画像やイメージのご持参を歓迎しています。ただし、他アーティストの作品をそのままコピーすることはお断りしております。参考をもとにオリジナルデザインに仕上げさせていただきます。</div>
+        </div>
+        <div class="faq-item reveal">
+          <div class="faq-q">キャンセルポリシーを教えてください。</div>
+          <div class="faq-a">前日20時以降および当日のキャンセルは、キャンセル料¥10,000をお支払いいただきます（口座振込またはPayPay）。体調不良などやむを得ない場合はお早めにご連絡ください。お支払いが確認できない場合、次回のご予約はお受けできません。</div>
+        </div>
+        <div class="faq-item reveal reveal-delay-1">
+          <div class="faq-q">来店前に準備しておくことはありますか？</div>
+          <div class="faq-a">①前日・当日の飲酒はご遠慮ください。②前日はしっかり睡眠を取り、当日は十分な食事をしてからお越しください。③施術部位によっては服が汚れる場合があります。着脱しやすく汚れても良い服（黒色が無難）でお越しください。④前日または当日の朝に、施術部位の除毛をお願いします。</div>
+        </div>
+        <div class="faq-item reveal reveal-delay-1">
+          <div class="faq-q">支払い方法は何が使えますか？</div>
+          <div class="faq-a">現金のみとなります。事前に余裕を持ってご準備いただくようお願いします。なお、キャンセル料のお支払いに限り、口座振込またはPayPayにも対応しております。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKING -->
+  <section id="booking">
+    <div class="container">
+      <div class="booking-content">
+        <p class="section-label reveal">Booking</p>
+        <h2 class="section-title reveal reveal-delay-1">予約<em>する</em></h2>
+        <p class="booking-desc reveal reveal-delay-2">
+          あなたの物語を、点と線で肌に刻みましょう。<br>
+          まずはお気軽にご相談ください。カウンセリングは無料です。
+        </p>
+        <div class="booking-actions reveal reveal-delay-3">
+          <a href="https://www.instagram.com/yui_serendot_ink/" target="_blank" class="btn-outline">YUI &nbsp;@yui_serendot_ink</a>
+          <a href="https://www.instagram.com/kigu_serendot_ink/" target="_blank" class="btn-outline">KIGU &nbsp;@kigu_serendot_ink</a>
+          <a href="https://www.instagram.com/_____7eu/" target="_blank" class="btn-outline">ITONA &nbsp;@_____7eu</a>
+        </div>
+        <p class="booking-note reveal reveal-delay-4">
+          完全予約制 &nbsp;·&nbsp; 希望の彫師のInstagram DMへ直接ご連絡ください &nbsp;·&nbsp; カウンセリング無料
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCESS -->
+  <section id="access">
+    <div class="container">
+      <p class="section-label reveal">Access</p>
+      <h2 class="section-title reveal reveal-delay-1">アクセス</h2>
+      <div class="access-grid">
+        <div class="access-map reveal reveal-delay-2">
+          <div class="map-placeholder">
+            <div class="map-pin">📍</div>
+            <p>Map Placeholder</p>
+            <p style="font-size:0.6rem;color:var(--muted);">Google Mapを埋め込んでください</p>
+          </div>
+        </div>
+        <div class="access-info reveal reveal-delay-3">
+          <dl>
+            <div>
+              <dt class="access-dt">住所</dt>
+              <dd class="access-dd">
+                〒550-0011<br>
+                大阪府大阪市西区阿波座1丁目12−15<br>
+                龍苑ビル 3F
+              </dd>
+            </div>
+            <div class="access-divider"></div>
+            <div>
+              <dt class="access-dt">最寄り駅</dt>
+              <dd class="access-dd">
+                大阪メトロ各線「本町駅」徒歩圏内
+              </dd>
+            </div>
+            <div class="access-divider"></div>
+            <div>
+              <dt class="access-dt">営業時間</dt>
+              <dd class="access-dd">
+                完全予約制<br>
+                月〜土 11:00 – 20:00<br>
+                <span style="font-size:0.75rem;color:var(--muted);">日・祝 不定休</span>
+              </dd>
+            </div>
+            <div class="access-divider"></div>
+            <div>
+              <dt class="access-dt">連絡先</dt>
+              <dd class="access-dd">
+                Instagram: <a href="https://www.instagram.com/yui_serendot_ink/" target="_blank" style="color:var(--accent);">@yui_serendot_ink</a><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;<a href="https://www.instagram.com/kigu_serendot_ink/" target="_blank" style="color:var(--accent);">@kigu_serendot_ink</a><br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;<a href="https://www.instagram.com/_____7eu/" target="_blank" style="color:var(--accent);">@_____7eu</a>
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo">SERENDOT<span>.</span>INK</div>
+          <p>Serendipity × Dot —<br>大阪・本町のプライベートタトゥースタジオ。</p>
+        </div>
+        <div class="footer-col">
+          <h4>Menu</h4>
+          <ul>
+            <li><a href="#concept">Concept</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#artist">Artist</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#access">Access</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="https://www.instagram.com/yui_serendot_ink/" target="_blank">@yui_serendot_ink</a></li>
+            <li><a href="https://www.instagram.com/kigu_serendot_ink/" target="_blank">@kigu_serendot_ink</a></li>
+            <li><a href="https://www.instagram.com/_____7eu/" target="_blank">@_____7eu</a></li>
+            <li><a href="#booking">Booking</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 SERENDOT INK. All rights reserved.</p>
+        <div class="social-links">
+          <a href="https://www.instagram.com/yui_serendot_ink/" class="social-link" target="_blank">Instagram</a>
+          <a href="#" class="social-link">Privacy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // NAV SCROLL
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 80);
+    });
+
+    // REVEAL ON SCROLL
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+    revealEls.forEach(el => observer.observe(el));
+
+    // FAQ ACCORDION
+    document.querySelectorAll('.faq-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    // SMOOTH SCROLL FOR NAV LINKS
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // HAMBURGER (mobile)
+    document.getElementById('hamburger').addEventListener('click', () => {
+      // Simple mobile menu toggle — extend as needed
+      alert('モバイルメニュー：必要に応じて実装してください');
+    });
+  </script>
+</body>
+</html>
