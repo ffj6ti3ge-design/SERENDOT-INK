@@ -499,7 +499,7 @@
       text-align: center;
       padding: 4rem 0;
     }
-    #gallery-toggle {
+    .gallery-toggle-btn {
       background: none;
       border: 1px solid var(--accent);
       color: var(--accent);
@@ -512,7 +512,28 @@
       transition: background 0.3s, color 0.3s;
       margin-bottom: 1rem;
     }
-    #gallery-toggle:hover { background: var(--accent); color: var(--black); }
+    .gallery-toggle-btn:hover { background: var(--accent); color: var(--black); }
+    .gallery-artist-label {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      padding: 0 0 1.5rem;
+      border-bottom: 1px solid var(--mid);
+      margin-bottom: 0;
+    }
+    .gallery-artist-name {
+      font-family: var(--serif);
+      font-size: 2.5rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+    }
+    .gallery-artist-ig {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      transition: color 0.3s;
+    }
+    .gallery-artist-ig:hover { color: var(--accent); }
     .btn-outline {
       display: inline-block;
       border: 1px solid var(--accent);
@@ -997,7 +1018,7 @@
       </h1>
       <p class="hero-subtitle">点が紡ぐ、あなただけの物語</p>
       <div class="hero-divider"></div>
-      <p class="hero-tagline">Black &amp; Grey &nbsp;·&nbsp; Realism &nbsp;·&nbsp; Fine Line &nbsp;·&nbsp; Custom Design</p>
+      <p class="hero-tagline">Black &amp; Grey &nbsp;·&nbsp; Realistic &nbsp;·&nbsp; Fine Line &nbsp;·&nbsp; Custom Design</p>
     </div>
     <div class="scroll-hint">Scroll</div>
   </section>
@@ -1076,10 +1097,6 @@
               </svg>
             </div>
           </div>
-          <div class="concept-badge">
-            <span class="num">100%</span>
-            <span class="label">Custom</span>
-          </div>
         </div>
         <div class="concept-text">
           <p class="section-label reveal reveal-delay-1">Our Concept</p>
@@ -1088,20 +1105,6 @@
             <p>SERENDOT INKの名は、<strong style="color:var(--accent)">Serendipity × Dot</strong> に由来しています。「Serendipity」とは、幸運な偶然を引き寄せる力。思いがけない出会いや、予期せぬ美しさの中に幸せを見つける感性。</p>
             <p>訪れたお店が休みだったのに、偶然入った別のお店が素晴らしかった——そんな経験がタトゥーを通じてあなたにも起きますように。あなたと私たちの「偶然の出会い」が、特別な一作を生みます。</p>
             <p>白く明るい清潔なスタジオで、完全予約制によるプライベートな空間をご用意。<strong style="color:var(--white)">「タトゥー初心者でも怖くないスタジオ」「明日もまた来たくなるスタジオ」</strong>を目指して、日々精進しています。</p>
-          </div>
-          <div class="concept-values reveal reveal-delay-4">
-            <div class="concept-value">
-              <div class="val-num">01</div>
-              <div class="val-label">Custom Design</div>
-            </div>
-            <div class="concept-value">
-              <div class="val-num">02</div>
-              <div class="val-label">Sanitary</div>
-            </div>
-            <div class="concept-value">
-              <div class="val-num">03</div>
-              <div class="val-label">Aftercare</div>
-            </div>
           </div>
         </div>
       </div>
@@ -1129,7 +1132,7 @@
         </div>
         <div class="service-card reveal reveal-delay-1">
           <div class="service-num">02</div>
-          <div class="service-name">Realism</div>
+          <div class="service-name">Realistic</div>
           <div class="service-name-jp">リアリスティック</div>
           <p class="service-desc">写真のようなリアルな質感を追求するスタイル。ポートレート、動物、自然物など、被写体を肌の上に再現します。胸・腕・脚などの大きな作品も得意です。</p>
         </div>
@@ -1166,10 +1169,16 @@
     <div class="container">
       <div class="gallery-header">
         <p class="section-label reveal">Gallery</p>
-        <h2 class="section-title reveal reveal-delay-1">YUI — 作品<em>集</em></h2>
+        <h2 class="section-title reveal reveal-delay-1">作品<em>集</em></h2>
+      </div>
+
+      <!-- YUI -->
+      <div class="gallery-artist-label reveal">
+        <span class="gallery-artist-name">YUI</span>
+        <a href="https://www.instagram.com/yui_serendot_ink/" target="_blank" class="gallery-artist-ig">@yui_serendot_ink</a>
       </div>
     </div>
-    <div class="gallery-masonry">
+    <div class="gallery-masonry" id="gallery-yui">
       <div class="gallery-item"><img src="YUI作品.jpg" alt="Cat realism tattoo"></div>
       <div class="gallery-item"><img src="LINE_ALBUM_タトゥー作品_260327_15.jpg" alt="Jellyfish tattoo"></div>
       <div class="gallery-item"><img src="LINE_ALBUM_タトゥー作品_260327_5.jpg" alt="Butterfly and rose tattoo"></div>
@@ -1177,7 +1186,6 @@
       <div class="gallery-item"><img src="LINE_ALBUM_タトゥー作品_260327_17.jpg" alt="Otter tattoo"></div>
       <div class="gallery-item"><img src="S__62226435.jpg" alt="Script lettering tattoo"></div>
       <div class="gallery-item gallery-hidden"><img src="LINE_ALBUM_タトゥー作品_260327_3.jpg" alt="Rose tattoo"></div>
-
       <div class="gallery-item gallery-hidden"><img src="LINE_ALBUM_タトゥー作品_260327_14.jpg" alt="Dog portrait lettering tattoo"></div>
       <div class="gallery-item gallery-hidden"><img src="LINE_ALBUM_タトゥー作品_260327_2.jpg" alt="Chameleon tattoo"></div>
       <div class="gallery-item gallery-hidden"><img src="LINE_ALBUM_タトゥー作品_260327_6.jpg" alt="Sea turtle tattoo"></div>
@@ -1188,9 +1196,31 @@
       <div class="gallery-item gallery-hidden"><img src="LINE_ALBUM_タトゥー作品_260327_16.jpg" alt="Wave lettering tattoo"></div>
       <div class="gallery-item gallery-hidden"><img src="LINE_ALBUM_タトゥー作品_260327_12.jpg" alt="Kanji lettering tattoo"></div>
     </div>
+    <div class="gallery-cta">
+      <button id="gallery-toggle-yui" class="gallery-toggle-btn">See More</button>
+    </div>
+
+    <!-- ITONA -->
+    <div class="container">
+      <div class="gallery-artist-label reveal" style="margin-top:4rem;">
+        <span class="gallery-artist-name">ITONA</span>
+        <a href="https://www.instagram.com/_____7eu/" target="_blank" class="gallery-artist-ig">@_____7eu</a>
+      </div>
+    </div>
+    <div class="gallery-masonry" id="gallery-itona">
+      <div class="gallery-item"><img src="ITONA（serendot ink）/LINE_ALBUM_20260327_260328_6.jpg" alt="Tiger chest piece"></div>
+      <div class="gallery-item"><img src="ITONA（serendot ink）/LINE_ALBUM_20260327_260328_8.jpg" alt="Comedy tragedy masks"></div>
+      <div class="gallery-item"><img src="ITONA（serendot ink）/LINE_ALBUM_20260327_260328_9.jpg" alt="Eye roses tattoo"></div>
+      <div class="gallery-item"><img src="ITONA（serendot ink）/LINE_ALBUM_20260327_260328_4.jpg" alt="Heart faces tattoo"></div>
+      <div class="gallery-item"><img src="ITONA（serendot ink）/LINE_ALBUM_20260327_260328_3.jpg" alt="Angel tattoo"></div>
+      <div class="gallery-item"><img src="ITONA（serendot ink）/LINE_ALBUM_20260327_260328_10.jpg" alt="Woman target tattoo"></div>
+      <div class="gallery-item gallery-hidden"><img src="ITONA（serendot ink）/LINE_ALBUM_20260327_260328_1.jpg" alt="Smoking face tattoo"></div>
+      <div class="gallery-item gallery-hidden"><img src="ITONA（serendot ink）/LINE_ALBUM_20260327_260328_2.jpg" alt="Surreal face tattoo"></div>
+      <div class="gallery-item gallery-hidden"><img src="ITONA（serendot ink）/LINE_ALBUM_20260327_260328_5.jpg" alt="Creation of Adam tattoo"></div>
+    </div>
     <div class="gallery-cta reveal">
-      <button id="gallery-toggle">See More</button><br>
-      <a href="https://www.instagram.com/yui_serendot_ink/" target="_blank" class="btn-outline">Instagram でもっと見る</a>
+      <button id="gallery-toggle-itona" class="gallery-toggle-btn">See More</button><br>
+      <a href="https://www.instagram.com/_____7eu/" target="_blank" class="btn-outline" style="margin-top:1rem;display:inline-block;">Instagram でもっと見る</a>
     </div>
   </section>
 
@@ -1269,7 +1299,7 @@
             <a href="https://www.instagram.com/kigu_serendot_ink/" target="_blank" class="artist-card-ig">@ kigu_serendot_ink</a>
             <div class="artist-card-tags">
               <span class="artist-card-tag">Large Pieces</span>
-              <span class="artist-card-tag">Realism</span>
+              <span class="artist-card-tag">Realistic</span>
               <span class="artist-card-tag">Black &amp; Grey</span>
               <span class="artist-card-tag">Portrait</span>
             </div>
@@ -1278,10 +1308,8 @@
 
         <!-- ITONA -->
         <div class="artist-card reveal reveal-delay-2">
-          <div class="artist-photo g-itona">
-            <div class="artist-photo-placeholder">
-              <span class="artist-initial">ITONA</span>
-            </div>
+          <div class="artist-photo">
+            <img src="ITONA プロフィール.jpg" alt="ITONA" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
           </div>
           <div class="artist-card-info">
             <div class="artist-card-name">ITONA</div>
@@ -1338,6 +1366,14 @@
         <div class="faq-item reveal reveal-delay-1">
           <div class="faq-q">支払い方法は何が使えますか？</div>
           <div class="faq-a">現金のみとなります。事前に余裕を持ってご準備いただくようお願いします。なお、キャンセル料のお支払いに限り、口座振込またはPayPayにも対応しております。</div>
+        </div>
+        <div class="faq-item reveal">
+          <div class="faq-q">施術後のアフターケアはどうすれば良いですか？</div>
+          <div class="faq-a">施術後は担当アーティストから詳しい説明をします。一般的な注意事項は以下のとおりです。①施術当日は入浴を避け、シャワーのみにしてください。②施術部位は清潔に保ち、保湿クリームを適度に塗布してください。③直射日光・プールや海への入水・サウナは完全に回復するまで（約2〜4週間）お避けください。④かさぶたができても絶対に剥がさないでください。⑤気になることがあればいつでもお気軽にご連絡ください。</div>
+        </div>
+        <div class="faq-item reveal reveal-delay-1">
+          <div class="faq-q">タトゥーが完全に回復するまでどのくらいかかりますか？</div>
+          <div class="faq-a">表面の皮膚は約2〜4週間で回復しますが、皮膚の深部が完全に落ち着くまでは2〜3ヶ月かかる場合があります。回復中は色が薄く見えることがありますが、定着すると本来の色味に戻ります。回復が気になる方はお気軽にご相談ください。</div>
         </div>
       </div>
     </div>
@@ -1479,15 +1515,15 @@
     revealEls.forEach(el => observer.observe(el));
 
     // GALLERY SEE MORE
-    const toggleBtn = document.getElementById('gallery-toggle');
-    if (toggleBtn) {
-      toggleBtn.addEventListener('click', () => {
-        document.querySelectorAll('.gallery-item.gallery-hidden').forEach(el => {
-          el.classList.remove('gallery-hidden');
+    [['gallery-toggle-yui', 'gallery-yui'], ['gallery-toggle-itona', 'gallery-itona']].forEach(([btnId, galleryId]) => {
+      const btn = document.getElementById(btnId);
+      if (btn) {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll(`#${galleryId} .gallery-hidden`).forEach(el => el.classList.remove('gallery-hidden'));
+          btn.style.display = 'none';
         });
-        toggleBtn.style.display = 'none';
-      });
-    }
+      }
+    });
 
     // FAQ ACCORDION
     document.querySelectorAll('.faq-item').forEach(item => {
